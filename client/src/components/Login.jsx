@@ -1,23 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCartContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Login = () => {
+
+ const [UsersList,setUserList] = useState([])
+  const fetchData =async ()=>{
+    try {
+      const response = await axios.get("http://localhost:3000/login")
+      console.log(response.data);
+      setUserList(response.data)
+     
+    } catch (error) {
+      console.error(error);
+    } }
+
+  useEffect(()=>{
+    fetchData()
+  },[])
+
+
   const { setName } = useCartContext();
 
   const [uname, setUName] = useState("");
   const [pass, setPass] = useState("");
   const isAuth = (user, pass) => {
-    const username = ["Raj", "Sam", "Ram"];
-    const password = ["123", "234", "345"];
+    
     var r=0
-    username.map((data, index) => {
-      if (user === data && password[index] === pass) {
-        r = 1;
-      } else if (user === data && password[index] !== pass) {
-        r=2;
-      }
-    });
+
+    if(UsersList.length){
+      UsersList.map((item)=>{
+        if(item.username === user && item.password === pass){
+          r=1
+        }
+        else if(item.username === user && item.password !== pass)
+        {
+          r=2
+        }
+    })
+    }
+
 
     if (r === 1) {
       alert("Login Sucess");

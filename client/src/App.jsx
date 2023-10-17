@@ -7,6 +7,7 @@ import { Home } from "./components/Home";
 import { Cart } from "./components/Cart";
 import { Profile } from "./components/Profile";
 import { Nav } from "./components/Nav";
+import { Reg } from "./components/Reg";
 
 
 const CartContext = createContext();
@@ -32,6 +33,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/reg" element={<Reg />} />
           </Routes>
         </BrowserRouter>
       </CartContext.Provider>
